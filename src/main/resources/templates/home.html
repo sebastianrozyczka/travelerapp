@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Homepage</title>
+    <link rel="icon" href="../static/black-globe-solid.svg" type="image/svg">
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body class="bg-dark text-white" style="padding-top: 80px; margin: 30px">
+<nav class="navbar p-3 mb-2 fixed-top navbar-expand-lg navbar-dark bg-dark" style="height: 100px">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <img src="white-globe-solid.svg" alt="" width="48" height="48">
+            TravelerApp
+        </a>
+        <div>
+            <button class="btn btn-link" style="color: white">Sign in</button> &nbsp;
+            <button class="btn btn-success">Sign up</button>
+        </div>
+    </div>
+</nav>
+<div class="container-lg shadow-lg p-3 mb-5 bg-body rounded"
+     style="margin-top: 50px; width: 1280px; height: 720px; position: relative; background-image: url('https://images.unsplash.com/photo-1567611908290-facedef21793?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'); background-size: cover">
+    <div style="margin-top: 500px; text-align: center">
+        <p class="fs-3 fw-light">What would you like to see?</p>
+        <div class="btn-group btn-group-lg" role="group" style="width: 900px;">
+            <a th:href="@{/regions}" type="button" class="btn btn-dark">Regions</a>
+            <a th:href="@{/countries}" type="button" class="btn btn-dark">Countries</a>
+            <a th:href="@{/cities}" type="button" class="btn btn-dark">Cities</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
