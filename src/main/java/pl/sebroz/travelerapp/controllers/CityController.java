@@ -1,33 +1,42 @@
 package pl.sebroz.travelerapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.sebroz.travelerapp.model.City;
-import pl.sebroz.travelerapp.services.GenericService;
+import pl.sebroz.travelerapp.model.filters.CityFilters;
+import pl.sebroz.travelerapp.services.CityService;
+import pl.sebroz.travelerapp.services.RegionService;
 
 import javax.websocket.server.PathParam;
 
 @Controller
 public class CityController {
-    private final GenericService<City> cityService;
 
-    public CityController(GenericService<City> cityService) {
+    private final CityService cityService;
+
+    private final RegionService regionService;
+
+    @Autowired
+    public CityController(CityService cityService, RegionService regionService) {
         this.cityService = cityService;
+        this.regionService = regionService;
     }
 
     @GetMapping("/cities")
-    public String cities(Model model) {
-        model.addAttribute("cities", cityService.findAll());
+    public String cities(Model model, CityFilters cityFilters) {
+        model.addAttribute("cities", cityService.findAll(cityFilters));
+        model.addAttribute("filters", cityFilters);
 
         return "cities";
     }
 
     @GetMapping("/city")
     public String countries(Model model, @PathParam("id") Long id) {
-        model.addAttribute("city", cityService.getOne(id));
+        model.addAttribute("city", cityService.findById(id));
 
         return "city";
     }
@@ -41,8 +50,8 @@ public class CityController {
 
     @GetMapping("/city/edit/{id}")
     public String editCity(Model model, @PathVariable("id") Long id) {
-        City city = cityService.getOne(id);
-        model.addAttribute("city", city);
+        model.addAttribute("city", cityService.findById(id));
+        model.addAttribute("regions", regionService.findAll());
 
         return "edit-city";
     }
@@ -60,5 +69,13 @@ public class CityController {
         cityService.save(city);
 
         return "redirect:/cities";
+    }
+
+    @GetMapping("/city/{id}/add/region")
+    public String addRegionToCity(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("city", cityService.findById(id));
+        model.addAttribute("regions", regionService.findAll());
+
+        return "add-region-to-city";
     }
 }

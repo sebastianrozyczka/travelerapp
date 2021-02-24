@@ -1,6 +1,7 @@
 package pl.sebroz.travelerapp.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@Table(name = "country")
 public class Country implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -20,15 +23,18 @@ public class Country implements Serializable {
     @Column(name = "country_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "varchar(255)")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "varchar(1000)")
     private String description;
 
-    @Column(name = "average_temperature")
+    @Column(name = "average_temperature", columnDefinition = "decimal(10,2)")
     private BigDecimal averageTemperature;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", columnDefinition = "varchar(255)")
     private String imageUrl;
+
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Region> regions = new ArrayList<>();
 }

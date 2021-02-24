@@ -26,20 +26,48 @@
         <img src="arrow-left-solid.svg" alt="" width="12" height="12">
         Go back
     </a>
-    <a type="button" class="btn btn-link" th:href="@{/region/delete/{regionId}(regionId=${region.id})}" style="float: right">
+    <a type="button" class="btn btn-link" th:href="@{/region/delete/{regionId}(regionId=${region.id})}"
+       style="float: right">
         <img src="trash-alt-solid.svg" alt="" width="24" height="24">
     </a>
-    <a type="button" class="btn btn-link" th:href="@{/region/edit/{regionId}(regionId=${region.id})}" style="float: right; margin-right: 20px">
+    <a type="button" class="btn btn-link" th:href="@{/region/edit/{regionId}(regionId=${region.id})}"
+       style="float: right; margin-right: 20px">
         <img src="pencil-alt-solid.svg" alt="" width="24" height="24">
+    </a>
+    <a type="button" class="btn btn-link" th:href="@{/region/{regionId}/add/country(regionId=${region.id})}"
+       style="float: right; margin-right: 20px">
+        <img src="folder-plus-solid.svg" alt="" width="24" height="24">
     </a>
 </div>
 <div style="text-align: -webkit-center">
+    <div>
+        <p class="fs-4 fw-light" th:text="${region.country} != null ? 'Country: ' + ${region.country.name} : 'No country'"></p>
+    </div>
     <div class="card bg-dark text-white"
          style="width: 1250px; height: 300px; overflow: hidden; margin-bottom: 10px; margin-top: 50px">
         <img th:src="${region.imageUrl}" style="top: -300px; position: absolute" class="card-img">
     </div>
-    <div>
+    <div style="margin-bottom: 50px">
         <p class="fs-4 fw-light" th:text="${region.description}"></p>
+    </div>
+    <div th:if="${region.cities.size() > 0}">
+        <p class="fs-4 fw-light">Cities from this region:</p>
+        <table class="table table-dark table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="city : ${region.cities}">
+                <td th:text="${city.id}"></td>
+                <td th:text="${city.name}"></td>
+                <td><a th:href="@{/city?id={cityId}(cityId=${city.id})}"><img src="eye-solid.svg" height="24" width="24" alt=""></a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

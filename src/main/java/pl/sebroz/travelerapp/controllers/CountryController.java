@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.sebroz.travelerapp.model.City;
 import pl.sebroz.travelerapp.model.Country;
+import pl.sebroz.travelerapp.model.filters.CountryFilters;
+import pl.sebroz.travelerapp.services.CountryService;
 import pl.sebroz.travelerapp.services.CountryServiceImpl;
 
 import javax.websocket.server.PathParam;
@@ -14,15 +16,16 @@ import javax.websocket.server.PathParam;
 @Controller
 public class CountryController {
 
-    private final CountryServiceImpl countryService;
+    private final CountryService countryService;
 
-    public CountryController(CountryServiceImpl countryService) {
+    public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
 
     @GetMapping("/countries")
-    public String countries(Model model) {
-        model.addAttribute("countries", countryService.findAll());
+    public String countries(Model model, CountryFilters countryFilters) {
+        model.addAttribute("countries", countryService.findAll(countryFilters));
+        model.addAttribute("filters", countryFilters);
 
         return "countries";
     }

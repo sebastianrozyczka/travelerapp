@@ -43,6 +43,25 @@
         <p class="fs-4 fw-light"
            th:text="'Average temperature: ' + ${country.averageTemperature.setScale(1)} + '°C'"></p>
     </div>
+    <div th:if="${country.regions.size() > 0}">
+        <p class="fs-4 fw-light">Regions from this country:</p>
+        <table class="table table-dark table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="region : ${country.regions}">
+                <td th:text="${region.id}"></td>
+                <td th:text="${region.name}"></td>
+                <td><a th:href="@{/region?id={regionId}(regionId=${region.id})}"><img src="eye-solid.svg" height="24" width="24" alt=""></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

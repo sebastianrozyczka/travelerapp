@@ -32,6 +32,12 @@
     </a>
 </div>
 <div style="text-align: -webkit-center; margin-top: 20px">
+    <div style="margin-bottom: 20px; width: 500px; text-align: -webkit-center">
+        <form class="d-flex" action="/countries" method="get" th:object="${filters}">
+            <input class="form-control me-2" type="text" placeholder="Enter contry name or part of it" th:field="*{name}">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
     <table>
         <tbody>
         <tr th:each="country : ${countries}">

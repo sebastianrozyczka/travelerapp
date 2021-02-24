@@ -5,31 +5,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.sebroz.travelerapp.model.City;
 import pl.sebroz.travelerapp.model.Region;
-import pl.sebroz.travelerapp.services.RegionServiceImpl;
+import pl.sebroz.travelerapp.model.filters.RegionFilters;
+import pl.sebroz.travelerapp.services.CountryService;
+import pl.sebroz.travelerapp.services.RegionService;
 
 import javax.websocket.server.PathParam;
 
 @Controller
 public class RegionController {
 
-    private final RegionServiceImpl regionService;
+    private final RegionService regionService;
 
-    public RegionController(RegionServiceImpl regionService) {
+    private final CountryService countryService;
+
+    public RegionController(RegionService regionService, CountryService countryService) {
         this.regionService = regionService;
+        this.countryService = countryService;
     }
 
     @GetMapping("/regions")
-    public String regions(Model model) {
-        model.addAttribute("regions", regionService.findAll());
+    public String regions(Model model, RegionFilters regionFilters) {
+        model.addAttribute("regions", regionService.findAll(regionFilters));
+        model.addAttribute("filters", regionFilters);
 
         return "regions";
     }
 
     @GetMapping("/region")
     public String region(Model model, @PathParam("id") Long id) {
-        model.addAttribute("region", regionService.getOne(id));
+        model.addAttribute("region", regionService.findById(id));
 
         return "region";
     }
@@ -43,7 +48,7 @@ public class RegionController {
 
     @GetMapping("/region/edit/{id}")
     public String editRegion(Model model, @PathVariable("id") Long id) {
-        Region region = regionService.getOne(id);
+        Region region = regionService.findById(id);
         model.addAttribute("region", region);
 
         return "edit-region";
@@ -62,5 +67,14 @@ public class RegionController {
         regionService.save(region);
 
         return "redirect:/regions";
+    }
+
+
+    @GetMapping("/region/{id}/add/country")
+    public String addCountryToRegion(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("region", regionService.findById(id));
+        model.addAttribute("countries", countryService.findAll());
+
+        return "add-country-to-region";
     }
 }

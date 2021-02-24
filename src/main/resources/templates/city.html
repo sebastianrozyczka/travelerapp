@@ -29,18 +29,26 @@
     <a type="button" class="btn btn-link" th:href="@{/city/delete/{cityId}(cityId=${city.id})}" style="float: right">
         <img src="trash-alt-solid.svg" alt="" width="24" height="24">
     </a>
-    <a type="button" class="btn btn-link" th:href="@{/city/edit/{cityId}(cityId=${city.id})}" style="float: right; margin-right: 20px">
+    <a type="button" class="btn btn-link" th:href="@{/city/edit/{cityId}(cityId=${city.id})}"
+       style="float: right; margin-right: 20px">
         <img src="pencil-alt-solid.svg" alt="" width="24" height="24">
+    </a>
+    <a type="button" class="btn btn-link" th:href="@{/city/{cityId}/add/region(cityId=${city.id})}"
+       style="float: right; margin-right: 20px">
+        <img src="folder-plus-solid.svg" alt="" width="24" height="24">
     </a>
 </div>
 <div style="text-align: -webkit-center">
+    <div>
+        <p class="fs-4 fw-light" th:text="${city.region} != null ? 'Region: ' + ${city.region.name} : 'No region'"></p>
+    </div>
     <div class="card bg-dark text-white"
          style="width: 1250px; height: 300px; overflow: hidden; margin-bottom: 10px; margin-top: 50px">
         <img th:src="${city.imageUrl}" style="top: -300px; position: absolute" class="card-img">
     </div>
     <div>
         <p class="fs-4 fw-light" th:text="${city.description}"></p>
-       </div>
+    </div>
 </div>
 </body>
 </html>
