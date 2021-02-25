@@ -5,11 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.sebroz.travelerapp.model.City;
 import pl.sebroz.travelerapp.model.Country;
 import pl.sebroz.travelerapp.model.filters.CountryFilters;
 import pl.sebroz.travelerapp.services.CountryService;
-import pl.sebroz.travelerapp.services.CountryServiceImpl;
 
 import javax.websocket.server.PathParam;
 
@@ -32,7 +30,7 @@ public class CountryController {
 
     @GetMapping("/country")
     public String country(Model model, @PathParam("id") Long id) {
-        model.addAttribute("country", countryService.getOne(id));
+        model.addAttribute("country", countryService.findById(id));
 
         return "country";
     }
@@ -46,7 +44,7 @@ public class CountryController {
 
     @GetMapping("/country/edit/{id}")
     public String editCountry(Model model, @PathVariable("id") Long id) {
-        Country country = countryService.getOne(id);
+        Country country = countryService.findById(id);
         model.addAttribute("country", country);
 
         return "edit-country";

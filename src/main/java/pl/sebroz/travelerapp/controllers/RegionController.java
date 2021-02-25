@@ -16,7 +16,6 @@ import javax.websocket.server.PathParam;
 public class RegionController {
 
     private final RegionService regionService;
-
     private final CountryService countryService;
 
     public RegionController(RegionService regionService, CountryService countryService) {

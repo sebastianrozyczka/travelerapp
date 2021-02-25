@@ -10,7 +10,7 @@ public interface CountryService {
 
     List<Country> findAll();
 
-    Country getOne(Long id);
+    Country findById(Long id);
 
     void delete(Long id);
 

@@ -6,12 +6,14 @@ import pl.sebroz.travelerapp.model.filters.RegionFilters;
 import pl.sebroz.travelerapp.repositories.RegionRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static pl.sebroz.travelerapp.specifications.RegionSpecification.*;
 
 @Service
 public class RegionServiceImpl implements RegionService {
 
+    public static final String EXCEPTION_MESSAGE = "No region with the given identity number.";
     private final RegionRepository regionRepository;
 
     public RegionServiceImpl(RegionRepository regionRepository) {
@@ -35,12 +37,12 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public Region findById(Long id) {
-        return regionRepository.findById(id).orElseThrow();
+        return regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        regionRepository.delete(regionRepository.findById(id).orElseThrow());
+        regionRepository.delete(regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override
