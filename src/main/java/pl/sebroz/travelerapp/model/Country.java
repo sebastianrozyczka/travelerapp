@@ -35,6 +35,6 @@ public class Country implements Serializable {
     @Column(name = "image_url", columnDefinition = "varchar(255)")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Region> regions = new ArrayList<>();
 }

@@ -35,6 +35,6 @@ public class Region implements Serializable {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<City> cities = new ArrayList<>();
 }
