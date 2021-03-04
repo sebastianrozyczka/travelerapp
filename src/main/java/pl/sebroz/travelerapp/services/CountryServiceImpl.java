@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sebroz.travelerapp.model.Country;
 import pl.sebroz.travelerapp.model.filters.CountryFilters;
@@ -16,6 +17,7 @@ public class CountryServiceImpl implements CountryService {
     private static final String EXCEPTION_MESSAGE = "No country with the given identity number.";
     private final CountryRepository countryRepository;
 
+    @Autowired
     public CountryServiceImpl(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
     }

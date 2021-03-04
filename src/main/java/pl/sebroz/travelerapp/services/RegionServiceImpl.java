@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sebroz.travelerapp.model.Region;
 import pl.sebroz.travelerapp.model.filters.RegionFilters;
@@ -16,6 +17,7 @@ public class RegionServiceImpl implements RegionService {
     public static final String EXCEPTION_MESSAGE = "No region with the given identity number.";
     private final RegionRepository regionRepository;
 
+    @Autowired
     public RegionServiceImpl(RegionRepository regionRepository) {
         this.regionRepository = regionRepository;
     }

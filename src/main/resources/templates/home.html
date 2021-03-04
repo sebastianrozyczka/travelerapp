@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Homepage</title>
     <link rel="icon" href="../static/black-globe-solid.svg" type="image/svg">
@@ -15,9 +15,16 @@
             TravelerApp
         </a>
         <p class="fs-2" th:text="Homepage"></p>
-        <div>
-            <button class="btn btn-link" style="color: white">Sign in</button> &nbsp;
-            <button class="btn btn-success">Sign up</button>
+        <div sec:authorize="isAnonymous()">
+            <a class="btn btn-link" style="color: white" th:href="@{login}">Sign
+                in</a> &nbsp;
+            <a class="btn btn-success" th:href="@{/registration}">Sign up</a>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="btn btn-link" style="color: white" th:href="@{admin}">Administration console</a> &nbsp;
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
