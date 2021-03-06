@@ -15,9 +15,6 @@
             TravelerApp
         </a>
         <p class="fs-2" th:text="${city.name}"></p>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
-            <a class="btn btn-link" style="color: white" th:href="@{admin}">Administration console</a> &nbsp;
-        </div>
         <div>
             <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </div>

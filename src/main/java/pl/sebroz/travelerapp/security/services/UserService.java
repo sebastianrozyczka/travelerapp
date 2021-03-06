@@ -42,11 +42,29 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user with given identity number."));
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("No user with given username."));
+    }
+
     public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public void saveSettings(User user) {
+        user.setRole(user.getRole());
+
         userRepository.save(user);
     }
 
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void changePassword(Long id, String password) {
+        userRepository.findById(id).ifPresent(user -> {
+                    user.setPassword(passwordEncoder.encode(password));
+                    userRepository.save(user);
+                }
+        );
     }
 }

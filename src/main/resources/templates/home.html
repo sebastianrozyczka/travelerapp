@@ -24,6 +24,10 @@
             <a class="btn btn-link" style="color: white" th:href="@{admin}">Administration console</a> &nbsp;
         </div>
         <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/settings/{userId}(userId=${user.id})}"><img src="user-cog-solid.svg" height="24"
+                                                                       width="24" alt=""></a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
             <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </div>
     </div>

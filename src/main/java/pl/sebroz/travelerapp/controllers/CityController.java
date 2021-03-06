@@ -35,7 +35,7 @@ public class CityController {
     }
 
     @GetMapping("/city")
-    public String countries(Model model, @PathParam("id") Long id) {
+    public String city(Model model, @PathParam("id") Long id) {
         model.addAttribute("city", cityService.findById(id));
 
         return "city";
