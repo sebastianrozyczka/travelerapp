@@ -34,12 +34,14 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City findById(Long id) {
-        return cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        cityRepository.delete(cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
+        cityRepository.delete(cityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override

@@ -39,12 +39,14 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public Region findById(Long id) {
-        return regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
+        return regionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        regionRepository.delete(regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
+        regionRepository.delete(regionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override

@@ -6,6 +6,8 @@ import pl.sebroz.travelerapp.security.model.User;
 import pl.sebroz.travelerapp.security.model.UserRole;
 import pl.sebroz.travelerapp.security.repositories.UserRoleRepository;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class UserRoleService {
 
@@ -17,7 +19,8 @@ public class UserRoleService {
     }
 
     public UserRole findByUser(User user) {
-        return userRoleRepository.findByUser(user);
+        return userRoleRepository.findByUser(user)
+                .orElseThrow(() -> new NoSuchElementException("No user with given username."));
     }
 
     public void save(UserRole userRole) {

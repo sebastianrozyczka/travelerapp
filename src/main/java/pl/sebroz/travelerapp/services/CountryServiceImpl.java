@@ -39,12 +39,14 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country findById(Long id) {
-        return countryRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
+        return countryRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        countryRepository.delete(countryRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
+        countryRepository.delete(countryRepository
+                .findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override

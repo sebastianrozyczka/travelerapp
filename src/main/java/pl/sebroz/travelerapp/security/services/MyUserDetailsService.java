@@ -10,7 +10,6 @@ import pl.sebroz.travelerapp.security.model.User;
 import pl.sebroz.travelerapp.security.repositories.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;

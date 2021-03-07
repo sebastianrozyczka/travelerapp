@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.sebroz.travelerapp.security.model.User;
 import pl.sebroz.travelerapp.security.model.UserRole;
 import pl.sebroz.travelerapp.security.services.UserRoleService;
 import pl.sebroz.travelerapp.security.services.UserService;
@@ -51,5 +50,4 @@ public class AdminController {
         userService.deleteUserById(id);
         return "redirect:/admin";
     }
-
 }

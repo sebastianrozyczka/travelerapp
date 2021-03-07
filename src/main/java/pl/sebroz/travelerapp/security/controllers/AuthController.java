@@ -34,7 +34,13 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String register(Model model) {
+    public String register(Model model, @RequestParam(required = false) String success) {
+        boolean showSuccessMessage = false;
+
+        if (success != null) {
+            showSuccessMessage = true;
+        }
+        model.addAttribute("showSuccessMessage", showSuccessMessage);
         model.addAttribute("user", new User());
 
         return "register";
@@ -44,7 +50,7 @@ public class AuthController {
     public String register(User user) {
         userService.register(user.getUsername(), user.getPassword());
 
-        return "redirect:/login";
+        return "redirect:/registration?success=true";
     }
 
     @GetMapping("/settings/{id}")

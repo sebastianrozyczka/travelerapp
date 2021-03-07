@@ -39,11 +39,13 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user with given identity number."));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("No user with given identity number."));
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("No user with given username."));
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException("No user with given username."));
     }
 
     public void save(User user) {
