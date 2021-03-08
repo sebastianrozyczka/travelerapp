@@ -27,6 +27,7 @@
                    name="password" id="password">
         </div>
         <p th:if="${showErrorMessage}" style="color: #911A00">Incorrect login or password!</p>
+        <p style="color: green" th:text="${successMessage}"></p>
         <div class="col-12" style="margin-top: 15px; text-align: right">
             <button class="btn btn-success" type="submit">
                 Log in

@@ -5,10 +5,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sebroz.travelerapp.security.model.User;
 import pl.sebroz.travelerapp.security.services.UserService;
 
@@ -23,34 +21,32 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, @RequestParam(required = false) String error) {
+    public String login(Model model, @RequestParam(required = false) String error,
+                        @ModelAttribute(name = "successMessage") String successMessage) {
         boolean showErrorMessage = false;
 
         if (error != null) {
             showErrorMessage = true;
         }
         model.addAttribute("showErrorMessage", showErrorMessage);
+
         return "login";
     }
 
     @GetMapping("/registration")
-    public String register(Model model, @RequestParam(required = false) String success) {
-        boolean showSuccessMessage = false;
-
-        if (success != null) {
-            showSuccessMessage = true;
-        }
-        model.addAttribute("showSuccessMessage", showSuccessMessage);
+    public String register(Model model) {
         model.addAttribute("user", new User());
 
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(User user) {
+    public String register(RedirectAttributes redirectAttributes, User user) {
         userService.register(user.getUsername(), user.getPassword());
 
-        return "redirect:/registration?success=true";
+        redirectAttributes.addFlashAttribute("successMessage", "Account created!");
+
+        return "redirect:/login";
     }
 
     @GetMapping("/settings/{id}")

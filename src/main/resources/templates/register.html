@@ -26,8 +26,6 @@
             <input type="password" maxlength="15" placeholder="Enter password" class="form-control"
                    id="password" th:field="*{password}">
         </div>
-        <p th:if="${showSuccessMessage}" style="color: green">
-            Account created, you can <a th:href="login">log in</a>!</p>
         <div class="col-12" style="margin-top: 15px; text-align: right">
             <button class="btn btn-success" type="submit">
                 Register
