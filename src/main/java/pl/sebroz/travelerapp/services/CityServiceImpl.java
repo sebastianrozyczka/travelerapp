@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sebroz.travelerapp.model.City;
 import pl.sebroz.travelerapp.model.filters.CityFilters;
@@ -16,6 +17,7 @@ public class CityServiceImpl implements CityService {
     private static final String EXCEPTION_MESSAGE = "No city with the given identity number";
     private final CityRepository cityRepository;
 
+    @Autowired
     public CityServiceImpl(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
@@ -32,12 +34,14 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City findById(Long id) {
-        return cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        cityRepository.delete(cityRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
+        cityRepository.delete(cityRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override

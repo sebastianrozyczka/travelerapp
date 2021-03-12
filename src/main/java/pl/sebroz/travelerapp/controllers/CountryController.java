@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ public class CountryController {
 
     private final CountryService countryService;
 
+    @Autowired
     public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }

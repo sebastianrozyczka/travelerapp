@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Region</title>
     <link rel="icon" href="black-globe-solid.svg" type="image/svg">
@@ -16,8 +16,7 @@
         </a>
         <p class="fs-2" th:text="${region.name}"></p>
         <div>
-            <button class="btn btn-link" style="color: white">Sign in</button> &nbsp;
-            <button class="btn btn-success">Sign up</button>
+            <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>

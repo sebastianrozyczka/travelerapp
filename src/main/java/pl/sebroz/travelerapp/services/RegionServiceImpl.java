@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sebroz.travelerapp.model.Region;
 import pl.sebroz.travelerapp.model.filters.RegionFilters;
@@ -16,6 +17,7 @@ public class RegionServiceImpl implements RegionService {
     public static final String EXCEPTION_MESSAGE = "No region with the given identity number.";
     private final RegionRepository regionRepository;
 
+    @Autowired
     public RegionServiceImpl(RegionRepository regionRepository) {
         this.regionRepository = regionRepository;
     }
@@ -37,12 +39,14 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public Region findById(Long id) {
-        return regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
+        return regionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE));
     }
 
     @Override
     public void delete(Long id) {
-        regionRepository.delete(regionRepository.findById(id).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
+        regionRepository.delete(regionRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE)));
     }
 
     @Override

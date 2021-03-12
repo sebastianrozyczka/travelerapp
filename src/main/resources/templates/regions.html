@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Regions</title>
     <link rel="icon" href="black-globe-solid.svg" type="image/svg">
@@ -16,8 +16,7 @@
         </a>
         <p class="fs-2">Regions</p>
         <div>
-            <button class="btn btn-link" style="color: white">Sign in</button> &nbsp;
-            <button class="btn btn-success">Sign up</button>
+            <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
         </div>
     </div>
 </nav>
@@ -34,7 +33,8 @@
 <div style="text-align: -webkit-center; margin-top: 20px">
     <div style="margin-bottom: 20px; width: 500px; text-align: -webkit-center">
         <form class="d-flex" action="/regions" method="get" th:object="${filters}">
-            <input class="form-control me-2" type="text" placeholder="Enter region name or part of it" th:field="*{name}">
+            <input class="form-control me-2" type="text" placeholder="Enter region name or part of it"
+                   th:field="*{name}">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>

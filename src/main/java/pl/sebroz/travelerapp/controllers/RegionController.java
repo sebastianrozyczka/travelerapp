@@ -1,5 +1,6 @@
 package pl.sebroz.travelerapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class RegionController {
     private final RegionService regionService;
     private final CountryService countryService;
 
+    @Autowired
     public RegionController(RegionService regionService, CountryService countryService) {
         this.regionService = regionService;
         this.countryService = countryService;
