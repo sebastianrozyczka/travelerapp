@@ -7,6 +7,7 @@ import pl.sebroz.travelerapp.exceptions.WeatherInformationNotAvailableException;
 import pl.sebroz.travelerapp.model.City;
 import pl.sebroz.travelerapp.model.filters.CityFilters;
 import pl.sebroz.travelerapp.model.weather.CityWeather;
+import pl.sebroz.travelerapp.model.weather.WeatherInfoDto;
 import pl.sebroz.travelerapp.model.weather.WeatherResponseDto;
 import pl.sebroz.travelerapp.repositories.CityRepository;
 
@@ -18,14 +19,16 @@ import static pl.sebroz.travelerapp.specifications.CitySpecification.*;
 @Service
 public class CityServiceImpl implements CityService {
 
-    private static final String URL = "api.openweathermap.org/data/2.5/weather?q={city}&appid={appId}";
+    private static final String URL = "http://api.openweathermap.org/data/2.5/weather?q={city}&appid={appId}";
     private static final String APP_ID = "e4da98874a028b59a81f94b46238ee16";
     private static final String EXCEPTION_MESSAGE = "No city with the given identity number";
     private final CityRepository cityRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
     public CityServiceImpl(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
+        restTemplate = new RestTemplate();
     }
 
     @Override
@@ -57,13 +60,12 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public CityWeather getCityWeather(String city) {
-        RestTemplate restTemplate = new RestTemplate();
-
         try {
             WeatherResponseDto response = restTemplate.getForObject(URL, WeatherResponseDto.class, city, APP_ID);
-            System.out.println(response.toString());
-            String main = response.getWeather().getMain();
-            String description = response.getWeather().getDescription();
+            String main = response.getWeather().stream()
+                    .map(WeatherInfoDto::getMain).findFirst().orElseThrow(WeatherInformationNotAvailableException::new);
+            String description = response.getWeather().stream()
+                    .map(WeatherInfoDto::getDescription).findFirst().orElseThrow(WeatherInformationNotAvailableException::new);
 
             return new CityWeather(main, description);
         } catch (Exception e) {
