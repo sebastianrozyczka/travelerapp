@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -28,6 +29,9 @@ public class City implements Serializable {
 
     @Column(name = "image_url", columnDefinition = "varchar(255)")
     private String imageUrl;
+
+    @Column(name = "temperature", columnDefinition = "decimal(10,2)")
+    private BigDecimal temperature;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "region_id")
